@@ -2,6 +2,7 @@ package app.adk.demo.support
 
 class Instructions {
 
+
     val VAGUE_INSTRUCTIONS =
         "You are a customer support agent. You will be given a customer query and you should respond with a helpful answer. " +
                 "If you don't know the answer, you should say 'I'm sorry, I don't know the answer to that question.'"

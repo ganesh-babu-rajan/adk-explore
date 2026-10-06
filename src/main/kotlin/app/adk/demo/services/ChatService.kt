@@ -1,7 +1,7 @@
 package app.adk.demo.services
 
+import app.adk.demo.AgentFactory.Companion.customerSupportAgent
 import app.adk.demo.ModelFactory
-import app.adk.demo.config.BeanConfig
 import app.adk.demo.support.Instructions
 import com.google.adk.agents.LlmAgent
 import com.google.adk.runner.InMemoryRunner
@@ -13,11 +13,10 @@ import org.slf4j.LoggerFactory
 @Service
 class ChatService {
     val APP_NAME: String = "Customer-Support-Service"
-    val log = LoggerFactory.getLogger(BeanConfig::class.java)
+    val log = LoggerFactory.getLogger(ChatService::class.java)
 
     fun ask(userId: String, question: String): String {
         // Runner and session must use the same app name key.
-        val userId = "TestUserId"
         val supportAgent = customerSupportAgent()
 
         //Runner is responsible for execute the agent and handle the input/output
@@ -44,17 +43,5 @@ class ChatService {
         runner.close().blockingAwait()
 
         return ""
-    }
-
-    fun customerSupportAgent(): LlmAgent? {
-        val model = ModelFactory.genericLLM()
-        log.info(model.toString())
-
-        return LlmAgent.builder()
-            .name("customer-support-agent")
-            .description("Handles customer support queries and provides helpful responses.")
-            .instruction(Instructions().GOOD_INSTRUCTIONS.trimIndent())
-            .model(model)
-            .build()
     }
 }
