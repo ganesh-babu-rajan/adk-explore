@@ -1,6 +1,6 @@
-package app.adk.demo.toolcalling
+package app.adk.demo.toolcalling.tools
 
-import com.google.adk.tools.Annotations.Schema
+import com.google.adk.tools.Annotations
 import org.slf4j.LoggerFactory
 
 class BookingTool {
@@ -26,10 +26,10 @@ class BookingTool {
             ),
         )
 
-        @Schema(name = "getBooking", description = "Get booking details by PNR")
+        @Annotations.Schema(name = "getBooking", description = "Get booking details by PNR")
         @JvmStatic
          fun getBooking(
-            @Schema(
+            @Annotations.Schema(
                 name = "pnr",
                 description = "six character PNR code starts with T"
             ) pnr: String
@@ -51,11 +51,11 @@ class BookingTool {
             }
         }
 
-        @Schema(description = "Calculate Cancellation fee for a booking. Returns the fee in euro and the refund the passenger would receive.")
+        @Annotations.Schema(description = "Calculate Cancellation fee for a booking. Returns the fee in euro and the refund the passenger would receive.")
         @JvmStatic
         fun cancellationFee(
-            @Schema(name = "pnr", description = "six character PNR code") pnr: String,
-            @Schema(name = "hoursBeforeDeparture", description = "Number of hours remaining before departure")
+            @Annotations.Schema(name = "pnr", description = "six character PNR code") pnr: String,
+            @Annotations.Schema(name = "hoursBeforeDeparture", description = "Number of hours remaining before departure")
             hoursBeforeDeparture: Int
         ): Map<String, String>? {
             val key = pnr.uppercase()
